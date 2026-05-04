@@ -1,0 +1,41 @@
+{
+  "$schema": "https://a11ygate.org/.well-known/schema/a11ygate-v1.json",
+  "version": "1.0",
+  "subject": {
+    "url": "https://a11ygate.org",
+    "type": "website",
+    "owner": "Ellari Ventures LLC",
+    "owner_url": "https://a11ygate.org/governance"
+  },
+  "audit": {
+    "par_id": "AG-REG-20260504-0001",
+    "issued_at": "2026-05-04T17:30:00Z",
+    "expires_at": "2026-08-04T17:30:00Z",
+    "conformance": "AG-AA",
+    "evidence_level": "L1",
+    "gate_state": "pass",
+    "exceptions_count": 0,
+    "informational_notes_count": 1,
+    "scope_summary": "Public website at a11ygate.org (16 routes) against A11yGate Standard v0.1 §5.1–5.10. Founding self-audit.",
+    "issuer": "Ellari Ventures LLC",
+    "issuer_type": "self_audit"
+  },
+  "registry": {
+    "record_url": "https://a11ygate.org/registry/AG-REG-20260504-0001",
+    "machine_readable_record": "https://a11ygate.org/registry/AG-REG-20260504-0001.json",
+    "seal_anchor": "https://sealforge.io/r/AG-SEAL-20260504-0001"
+  },
+  "methodology": {
+    "standard": "https://a11ygate.org/standard/v0.1",
+    "self_audit_url": "https://a11ygate.org/proof",
+    "evidence_bundle": "https://a11ygate.org/proof/AG-REG-20260504-0001/evidence.zip"
+  },
+  "next_audit": {
+    "scheduled_at": "2026-07-04T06:00:00Z",
+    "auditor": "Ellari Ventures LLC (renewal)"
+  },
+  "discovery": {
+    "supports": ["a11ygate.v1"],
+    "policy_url": "https://a11ygate.org/claims-policy"
+  }
+}
