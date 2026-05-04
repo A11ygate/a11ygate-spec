@@ -87,6 +87,15 @@ async function runSmoke() {
     else { console.error(`❌ /par/:id wrong status: ${par.status}`); failed++; }
 
 
+    // Verify X-XSS-Protection is absent (Brand Book v3 — legacy header removed)
+    if (!res.headers.get('x-xss-protection')) {
+      console.log('✅ security: X-XSS-Protection absent (correct — legacy)');
+      passed++;
+    } else {
+      console.error('❌ security: X-XSS-Protection should be removed (legacy header)');
+      failed++;
+    }
+
     // Badge SVG content check
     const badge = await fetch(TARGET + '/badges/AG-SEAL-20260504-0001.svg');
     const badgeSvg = await badge.text();

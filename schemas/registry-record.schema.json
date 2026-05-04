@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A11yGate Registry Record",
+  "description": "Public registry record for an A11yGate verification",
+  "type": "object",
+  "required": ["record_id", "organization", "property", "gate_state", "evidence_level", "review_date", "expiration_date", "seal_id", "public_status"],
+  "properties": {
+    "record_id": { "type": "string", "pattern": "^AG-REG-[0-9]{8}-[0-9]{4}$", "description": "AG-REG-YYYYMMDD-NNNN" },
+    "organization": {
+      "type": "object",
+      "required": ["name", "entity_type"],
+      "properties": {
+        "name": { "type": "string" },
+        "entity_type": {
+          "type": "string",
+          "enum": ["vendor", "public_entity", "enterprise", "nonprofit", "product_team", "standards_body"]
+        },
+        "sector": { "type": ["string", "null"] },
+        "founding_member": { "type": "boolean", "default": false }
+      }
+    },
+    "property": {
+      "type": "object",
+      "required": ["name", "url", "artifact_type"],
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "artifact_type": {
+          "type": "string",
+          "enum": ["website", "web_app", "mobile_app", "document_set", "api", "ai_interface", "checkout_flow", "portal"]
+        },
+        "environment": {
+          "type": "string",
+          "enum": ["production", "staging", "prototype"]
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "included_paths": { "type": "array", "items": { "type": "string" } },
+        "excluded_paths": { "type": "array", "items": { "type": "string" } },
+        "critical_tasks": { "type": "array", "items": { "type": "string" } },
+        "device_matrix": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "standard_map": {
+      "type": "object",
+      "properties": {
+        "wcag_version": { "type": "string", "enum": ["2.1 AA", "2.2 AA", "2.2 AAA", "custom"] },
+        "ada_title_ii": { "type": "boolean" },
+        "section_508": { "type": "boolean" },
+        "en_301_549": { "type": "boolean" },
+        "a11ygate_standard_version": { "type": "string" }
+      }
+    },
+    "gate_state": {
+      "type": "string",
+      "enum": ["pass", "conditional_pass", "fail", "waived", "expired", "blocked"]
+    },
+    "public_status": {
+      "type": "string",
+      "enum": ["registered", "verified", "conditional", "under_review", "expired", "revoked", "blocked"]
+    },
+    "evidence_level": {
+      "type": "string",
+      "enum": ["L1", "L2", "L4"],
+      "description": "L1=automated, L2=manual/expert-reviewed, L4=continuous monitoring"
+    },
+    "review_date": { "type": "string", "format": "date" },
+    "expiration_date": { "type": "string", "format": "date" },
+    "exception_count": { "type": "integer", "minimum": 0 },
+    "barrier_summary": {
+      "type": "object",
+      "properties": {
+        "B0": { "type": "integer", "minimum": 0 },
+        "B1": { "type": "integer", "minimum": 0 },
+        "B2": { "type": "integer", "minimum": 0 },
+        "B3": { "type": "integer", "minimum": 0 },
+        "B4": { "type": "integer", "minimum": 0 },
+        "BX": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "seal_id": { "type": "string", "pattern": "^AG-SEAL-[0-9]{8}-[A-Z0-9]+$" },
+    "sealforge_reference": { "type": ["string", "null"], "format": "uri" },
+    "supersedes": { "type": ["string", "null"], "description": "Prior seal ID if this is a renewal" },
+    "public_summary": { "type": ["string", "null"], "maxLength": 500 },
+    "registry_url": { "type": "string", "format": "uri" },
+    "badge_url": { "type": "string", "format": "uri" },
+    "embed_code": { "type": ["string", "null"] },
+    "monitoring_active": { "type": "boolean", "default": false },
+    "is_founding_record": { "type": "boolean", "default": false },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

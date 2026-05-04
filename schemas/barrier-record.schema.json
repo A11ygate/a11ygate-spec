@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A11yGate Barrier Record",
+  "description": "A single barrier entry in the A11yGate Barrier Queue™",
+  "type": "object",
+  "required": ["barrier_id", "audit_id", "severity", "domain", "finding", "gate_impact"],
+  "properties": {
+    "barrier_id": { "type": "string", "pattern": "^AG-B-[0-9A-Z]+-[0-9]{3}$" },
+    "audit_id": { "type": "string" },
+    "severity": {
+      "type": "string",
+      "enum": ["B0", "B1", "B2", "B3", "B4", "BX"],
+      "description": "B0=Access Blocker, B1=Severe, B2=Material, B3=Remediation Item, B4=Advisory, BX=Exception"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "visual_access", "navigation_access", "assistive_tech_access",
+        "form_access", "cognitive_access", "document_access", "mobile_access",
+        "authentication_access", "transaction_access", "ai_interface_access",
+        "evidence_governance", "remediation_governance"
+      ]
+    },
+    "finding": { "type": "string", "description": "Plain-language description of the barrier" },
+    "user_impact": { "type": ["string", "null"], "description": "Who is affected and how" },
+    "critical_path": {
+      "type": ["string", "null"],
+      "description": "login | payment | submission | search | download | account_recovery | other"
+    },
+    "gate_impact": {
+      "type": "string",
+      "description": "How this barrier affects the gate state decision"
+    },
+    "wcag_criterion": { "type": ["string", "null"], "description": "e.g. 2.1.1" },
+    "standard_mapping": { "type": ["string", "null"] },
+    "evidence_type": {
+      "type": ["string", "null"],
+      "enum": ["screenshot", "video", "dom_note", "screen_reader_note", "keyboard_path", "manual_note", null]
+    },
+    "evidence_url": { "type": ["string", "null"] },
+    "recommended_fix": { "type": ["string", "null"] },
+    "owner": { "type": ["string", "null"] },
+    "due_date": { "type": ["string", "null"], "format": "date" },
+    "retest_status": {
+      "type": "string",
+      "enum": ["not_started", "pending", "passed", "failed", "partial"],
+      "default": "not_started"
+    },
+    "exception_status": {
+      "type": "string",
+      "enum": ["none", "requested", "approved", "expired"],
+      "default": "none"
+    },
+    "exception_rationale": { "type": ["string", "null"] },
+    "exception_expiry": { "type": ["string", "null"], "format": "date" },
+    "registry_visibility": {
+      "type": "string",
+      "enum": ["public", "private", "summary_only"],
+      "default": "private"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

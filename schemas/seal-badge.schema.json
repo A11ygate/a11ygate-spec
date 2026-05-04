@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A11yGate Seal Badge",
+  "description": "Machine-readable badge metadata for an A11yGate seal",
+  "type": "object",
+  "required": ["seal_id", "label", "status", "entity", "registry_url", "review_date", "expires"],
+  "properties": {
+    "seal_id": { "type": "string", "pattern": "^AG-SEAL-[0-9]{8}-[A-Z0-9]+$" },
+    "label": {
+      "type": "string",
+      "enum": ["VERIFIED", "CONDITIONAL", "REGISTERED", "UNDER REVIEW", "EXPIRED", "REVOKED", "BLOCKED"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["verified", "conditional", "registered", "under_review", "expired", "revoked", "blocked"]
+    },
+    "entity": { "type": "string" },
+    "property": { "type": "string" },
+    "standard": { "type": "string", "description": "e.g. WCAG 2.2 AA" },
+    "registry_url": { "type": "string", "format": "uri" },
+    "sealforge_url": { "type": ["string", "null"], "format": "uri" },
+    "review_date": { "type": "string", "format": "date" },
+    "expires": { "type": "string", "format": "date" },
+    "last_checked": { "type": "string", "format": "date" },
+    "evidence_level": { "type": "string", "enum": ["L1", "L2", "L4"] },
+    "exception_count": { "type": "integer", "minimum": 0 },
+    "embed_html": { "type": ["string", "null"] },
+    "badge_colors": {
+      "type": "object",
+      "properties": {
+        "background": { "type": "string" },
+        "accent": { "type": "string" },
+        "text": { "type": "string" }
+      }
+    },
+    "cache_policy": {
+      "type": "string",
+      "description": "Cache-Control header value for badge responses"
+    }
+  }
+}
