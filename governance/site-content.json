@@ -1,0 +1,115 @@
+{
+  "brand": {
+    "name": "A11yGate\u2122",
+    "tagline": "Access Is The Gate.",
+    "description": "Accessibility proof infrastructure for governed digital systems.",
+    "maintainer": "Ellari Ventures LLC",
+    "status": "Standard in progress",
+    "verification": "Records sealed through SealForge\u2122",
+    "github_org": "A11ygate",
+    "sealforge_url": "https://sealforge.io",
+    "canonical_domain": "a11ygate.org"
+  },
+  "claims_policy": {
+    "approved": [
+      "scope-defined accessibility records",
+      "standards-aligned accessibility evidence",
+      "accessibility proof infrastructure",
+      "verification-ready records",
+      "gate states",
+      "waiver and remediation logic",
+      "standard in progress",
+      "mapped to WCAG / ADA Title II / Section 508 / EN 301 549",
+      "evidence-backed review"
+    ],
+    "banned": [
+      "guaranteed ADA compliance",
+      "fully accessible",
+      "lawsuit-proof",
+      "ADA-proof",
+      "instant compliance",
+      "certifies universal access",
+      "replaces WCAG",
+      "replaces legal review",
+      "guaranteed compliance",
+      "works for everyone"
+    ]
+  },
+  "public_routes": {
+    "/": "home \u2014 public authority homepage",
+    "/standard": "standard \u2014 spec summary + GitHub links",
+    "/proof": "proof \u2014 PAR explainer + SealForge handoff",
+    "/registry": "registry \u2014 PAR registry overview + lookup",
+    "/glossary": "glossary \u2014 public definitions (sf_glossary filtered)",
+    "/install": "install \u2014 CLI setup + developer onboarding",
+    "/reference-font": "reference_font \u2014 TRS + font spec",
+    "/manual-review": "manual_review \u2014 human review boundaries",
+    "/governance": "governance \u2014 decision logs, waiver doctrine",
+    "/contact": "contact \u2014 professional inquiry routing",
+    "/par/:id": "redirect \u2014 302 to sealforge.io/r/:id",
+    "/health": "health \u2014 minimal JSON only: {ok, service, public}"
+  },
+  "protected_routes": [
+    "/console",
+    "/api/d1",
+    "/api/health/full",
+    "/raw",
+    "/internal",
+    "/doctrine"
+  ],
+  "domain_routing": {
+    "a11ygate.com": "301 \u2192 a11ygate.org",
+    "www.a11ygate.com": "301 \u2192 a11ygate.org",
+    "www.a11ygate.org": "301 \u2192 a11ygate.org",
+    "a11ygate.io": "301 \u2192 a11ygate.org/install"
+  },
+  "banned_homepage_terms": [
+    "ELEOS Reality Engine",
+    "Console v1.2.1",
+    "mirrorprotocol.ai",
+    "D1 tables",
+    "RAW ENDPOINT",
+    "Health Full Status",
+    "Doctrine",
+    "Repair Types",
+    "Repair Scoring",
+    "Repair Failures",
+    "Cross-Ref Domains",
+    "State Schema",
+    "The string did not match the expected pattern"
+  ],
+  "required_homepage_terms": [
+    "A11yGate",
+    "Access Is The Gate",
+    "accessibility proof infrastructure",
+    "Proof-of-Accessibility Record",
+    "SealForge",
+    "Ellari Ventures LLC"
+  ],
+  "proof_chain": [
+    "Scan",
+    "Attest",
+    "Seal",
+    "Verify",
+    "Maintain"
+  ],
+  "gate_states": [
+    "pass",
+    "conditional_pass",
+    "fail",
+    "waived",
+    "expired"
+  ],
+  "five_proof_pillars": [
+    "Scope",
+    "Evidence",
+    "Gate State",
+    "Seal",
+    "Maintenance"
+  ],
+  "doctrine": {
+    "waiver_rule": "No silent exceptions. Every waiver requires an owner, reason, and expiration or remediation deadline."
+  },
+  "version": "0.1",
+  "last_updated": "2026-05-04"
+}

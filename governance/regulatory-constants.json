@@ -1,0 +1,26 @@
+{
+  "ada_title_ii": {
+    "technical_standard": "WCAG 2.1 Level AA",
+    "large_public_entity_deadline": "2027-04-26",
+    "small_public_entity_deadline": "2028-04-26",
+    "source_label": "DOJ Title II web and mobile app rule",
+    "source_url": "https://www.ada.gov/resources/2024-03-08-web-rule/"
+  },
+  "wcag": {
+    "latest_mapped_version": "2.2",
+    "baseline_legal_reference": "2.1 AA",
+    "source_url": "https://www.w3.org/TR/WCAG22/"
+  },
+  "section_508": {
+    "applies_to": "ICT developed, procured, maintained, or used by U.S. federal agencies",
+    "technical_standard": "WCAG 2.0 Level AA (harmonized with 2.1)",
+    "source_url": "https://www.access-board.gov/ict/"
+  },
+  "eaa": {
+    "application_date": "2025-06-28",
+    "scope": "EU-wide product and service accessibility requirements",
+    "source_label": "European Accessibility Act",
+    "source_url": "https://ec.europa.eu/social/main.jsp?catId=1202"
+  },
+  "note": "Do not hardcode these dates in copy. Pull from this file. Dates may change; always cite source."
+}
