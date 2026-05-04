@@ -65,7 +65,7 @@ async function runSmoke() {
     }
 
     // Route checks
-    const routes = ['/standard', '/proof', '/glossary', '/install', '/governance', '/contact'];
+    const routes = ['/standard', '/proof', '/glossary', '/install', '/governance', '/contact', '/robots.txt', '/sitemap.xml'];
     for (const route of routes) {
       const r = await fetch(TARGET + route);
       if (r.status === 200) { console.log(`✅ route: ${route}`); passed++; }

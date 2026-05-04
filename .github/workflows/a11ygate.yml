@@ -1,25 +1,58 @@
-name: A11yGate Typography Check
+name: A11yGate CI
 on:
   push:
-    paths: ['fonts/**', 'spec/**']
+    branches: [main]
   pull_request:
+    branches: [main]
+
 jobs:
-  audit:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install toolchain
-        run: pip install fonttools --break-system-packages
-      - name: Check font metrics
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate audit schema
+        if: always()
+        run: |
+          if [ -f dist/audit-report.json ]; then
+            npx ajv-cli validate -s schemas/audit-report.schema.json -d dist/audit-report.json
+          else
+            echo "No dist/audit-report.json — skipping schema validation"
+          fi
+
+      - name: Font metrics audit
+        if: always()
         run: |
           if [ -f tools/check_metrics.py ] && ls fonts/*.ttf 2>/dev/null; then
             python tools/check_metrics.py fonts/*.ttf --fail-on-error
           else
             echo "No fonts to audit yet — skipping"
           fi
-      - name: Validate audit schema
-        if: always()
+
+      - name: Smoke test public homepage
+        run: node governance/smoke-test.js https://a11ygate-web.ellari.workers.dev
+
+      - name: Verify governance artifacts present
         run: |
-          if [ -f dist/audit-report.json ]; then
-            npx ajv validate -s schemas/audit-report.schema.json -d dist/audit-report.json
-          fi
+          for f in governance/site-content.json governance/regulatory-constants.json governance/smoke-test.js governance/deployment-receipt.md; do
+            if [ -f "$f" ]; then echo "✅ $f"; else echo "❌ MISSING: $f" && exit 1; fi
+          done
+
+      - name: Verify BRAND_SPEC.md present
+        run: |
+          if [ -f BRAND_SPEC.md ]; then echo "✅ BRAND_SPEC.md"; else echo "❌ BRAND_SPEC.md missing" && exit 1; fi
+
+      - name: Check no banned terms in BRAND_SPEC
+        run: |
+          BANNED=("ELEOS Reality Engine" "Console v1.2.1" "mirrorprotocol.ai" "D1 tables")
+          for term in "${BANNED[@]}"; do
+            if grep -q "$term" BRAND_SPEC.md; then
+              echo "❌ BANNED TERM IN BRAND_SPEC: $term" && exit 1
+            fi
+          done
+          echo "✅ BRAND_SPEC clean"
