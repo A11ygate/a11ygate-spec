@@ -65,7 +65,7 @@ async function runSmoke() {
     }
 
     // Route checks
-    const routes = ['/standard', '/proof', '/glossary', '/install', '/governance', '/contact', '/robots.txt', '/sitemap.xml', '/badges/AG-SEAL-20260504-0001.svg'];
+    const routes = ['/standard', '/proof', '/registry', '/glossary', '/install', '/governance', '/contact', '/badges', '/claims-policy', '/robots.txt', '/sitemap.xml', '/badges/AG-SEAL-20260504-0001.svg'];
     for (const route of routes) {
       const r = await fetch(TARGET + route);
       if (r.status === 200) { console.log(`✅ route: ${route}`); passed++; }
@@ -96,7 +96,18 @@ async function runSmoke() {
       failed++;
     }
 
-    // Badge SVG content check
+    // Registry: REGISTERED_VS_VERIFIED callout
+    const regResp = await fetch(TARGET + '/registry');
+    const regText = await regResp.text();
+    if (regText.includes('Registered does not mean A11yGate verified')) {
+      console.log('✅ registry: REGISTERED_VS_VERIFIED callout present');
+      passed++;
+    } else {
+      console.error('❌ registry: REGISTERED_VS_VERIFIED callout missing');
+      failed++;
+    }
+
+  // Badge SVG content check
     const badge = await fetch(TARGET + '/badges/AG-SEAL-20260504-0001.svg');
     const badgeSvg = await badge.text();
     if (badge.headers.get('content-type')?.includes('svg') && badgeSvg.includes('<svg')) {
