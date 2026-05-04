@@ -1,0 +1,25 @@
+name: A11yGate Typography Check
+on:
+  push:
+    paths: ['fonts/**', 'spec/**']
+  pull_request:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install toolchain
+        run: pip install fonttools --break-system-packages
+      - name: Check font metrics
+        run: |
+          if [ -f tools/check_metrics.py ] && ls fonts/*.ttf 2>/dev/null; then
+            python tools/check_metrics.py fonts/*.ttf --fail-on-error
+          else
+            echo "No fonts to audit yet — skipping"
+          fi
+      - name: Validate audit schema
+        if: always()
+        run: |
+          if [ -f dist/audit-report.json ]; then
+            npx ajv validate -s schemas/audit-report.schema.json -d dist/audit-report.json
+          fi
