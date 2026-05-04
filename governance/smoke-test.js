@@ -65,7 +65,7 @@ async function runSmoke() {
     }
 
     // Route checks
-    const routes = ['/standard', '/proof', '/glossary', '/install', '/governance', '/contact', '/robots.txt', '/sitemap.xml'];
+    const routes = ['/standard', '/proof', '/glossary', '/install', '/governance', '/contact', '/robots.txt', '/sitemap.xml', '/badges/AG-SEAL-20260504-0001.svg'];
     for (const route of routes) {
       const r = await fetch(TARGET + route);
       if (r.status === 200) { console.log(`✅ route: ${route}`); passed++; }
@@ -85,6 +85,25 @@ async function runSmoke() {
     const par = await fetch(TARGET + '/par/test-id', { redirect: 'manual' });
     if (par.status === 302) { console.log(`✅ /par/:id → 302`); passed++; }
     else { console.error(`❌ /par/:id wrong status: ${par.status}`); failed++; }
+
+
+    // Badge SVG content check
+    const badge = await fetch(TARGET + '/badges/AG-SEAL-20260504-0001.svg');
+    const badgeSvg = await badge.text();
+    if (badge.headers.get('content-type')?.includes('svg') && badgeSvg.includes('<svg')) {
+      console.log('✅ badge: SVG content-type and <svg> tag');
+      passed++;
+    } else {
+      console.error('❌ badge: wrong content-type or missing <svg> tag');
+      failed++;
+    }
+    if (badgeSvg.includes('a11ygate.org')) {
+      console.log('✅ badge: entity name present');
+      passed++;
+    } else {
+      console.error('❌ badge: entity name missing');
+      failed++;
+    }
 
     console.log(`\n${'─'.repeat(50)}`);
     console.log(`Result: ${passed} passed · ${failed} failed`);
